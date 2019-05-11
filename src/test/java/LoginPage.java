@@ -1,6 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebElement;
 
@@ -9,19 +11,13 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 public class LoginPage extends PageBasis {
     private static final String URL = "https://www.tut.by/";
     private static final String LOGIN_TITLE = "Белорусский портал TUT.BY. Новости Беларуси и мира";
-    private static final By LOGIN_MENU_ITEM = By.xpath("//a[@class = 'enter']");
-    private static final By INPUT_LOGIN_USERNAME = By.xpath("//input[@name = 'login']");
     private static final String LOGIN_USERNAME = "seleniumtests@tut.by";
-    private static final By INPUT_LOGIN_PASSWORD = By.xpath("//input[@name = 'password']");
     private static final String LOGIN_PASSWORD = "123456789zxcvbn";
-    private static final By BUTTON_LOGIN_SUBMIT = By.xpath("//input[@class = 'button auth__enter']");
     private static final By LABEL_LOGGED_USER_NAME = By.xpath("//span[@class = 'uname']");
-    private static final By LINK_LOGOUT_MENU_ITEM = By.xpath("//a[@class = 'enter logedin']");
-    private static final By BUTTON_LOGOUT = By.xpath("//a[@class = 'button wide auth__reg']");
-    private static final By LABEL_BUTTON_LOGOUT = By.xpath("//a[@class = 'enter']");
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
+        PageFactory.initElements(driver, this);
     }
 
     public void open() {
@@ -32,23 +28,31 @@ public class LoginPage extends PageBasis {
         return LOGIN_TITLE;
     }
 
+    @FindBy(xpath = "//a[@class = 'enter']")
+    private WebElement loginMenuItem;
+
     public WebElement loginMenuItem() {
-        WebElement loginMenuItem = driver.findElement(LOGIN_MENU_ITEM);
         return loginMenuItem;
     }
 
+    @FindBy(xpath = "//input[@name = 'login']")
+    private WebElement inputLoginUsername;
+
     public void enterLoginUsername() {
-        WebElement inputLoginUsername = driver.findElement(INPUT_LOGIN_USERNAME);
         inputLoginUsername.sendKeys(LOGIN_USERNAME);
     }
 
+    @FindBy(xpath = "//input[@name = 'password']")
+    private WebElement inputLoginPassword;
+
     public void enterLoginPassword() {
-        WebElement inputLoginPassword = driver.findElement(INPUT_LOGIN_PASSWORD);
         inputLoginPassword.sendKeys(LOGIN_PASSWORD);
     }
 
+    @FindBy(xpath = "//input[@class = 'button auth__enter']")
+    private WebElement buttonLoginSubmit;
+
     public WebElement buttonLoginSubmit() {
-        WebElement buttonLoginSubmit = driver.findElement(BUTTON_LOGIN_SUBMIT);
         return buttonLoginSubmit;
     }
 
@@ -66,23 +70,33 @@ public class LoginPage extends PageBasis {
         return LABEL_LOGGED_USER_NAME;
     }
 
+    @FindBy(xpath = "//span[@class = 'uname']")
+    private WebElement labelLoggedUserName;
+
     public String getTextOfLabelLoggedUsername() {
-        String getTextOfLabelLoggedUsername = driver.findElement(LABEL_LOGGED_USER_NAME).getText();
+        String getTextOfLabelLoggedUsername = labelLoggedUserName.getText();
         return getTextOfLabelLoggedUsername;
     }
 
+    @FindBy(xpath = "//a[@class = 'enter logedin']")
+    private WebElement linkLogoutMenuItem;
+
     public WebElement linkLogoutMenuItem() {
-        WebElement linkLogoutMenuItem = driver.findElement(LINK_LOGOUT_MENU_ITEM);
         return linkLogoutMenuItem;
     }
 
+    @FindBy(xpath = "//a[@class = 'button wide auth__reg']")
+    private WebElement buttonLogout;
+
     public WebElement buttonLogout() {
-        WebElement buttonLogout = driver.findElement(BUTTON_LOGOUT);
         return buttonLogout;
     }
 
+    @FindBy(xpath = "//a[@class = 'enter']")
+    private WebElement labelLoggedOut;
+
     public String getTextOfLabelLoggedOut() {
-        String getTextOfLabelLoggedOut = driver.findElement(LABEL_BUTTON_LOGOUT).getText();
+        String getTextOfLabelLoggedOut = labelLoggedOut.getText();
         return getTextOfLabelLoggedOut;
     }
 }
