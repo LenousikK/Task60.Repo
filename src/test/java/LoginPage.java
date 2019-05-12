@@ -29,12 +29,12 @@ public class LoginPage extends PageBasis {
         return loginMenuItem;
     }
 
-    public void enterLoginUsername(String loginUsername) {
+    private void enterLoginUsername(String loginUsername) {
         WebElement inputLoginUsername = driver.findElement(INPUT_LOGIN_USERNAME);
         inputLoginUsername.sendKeys(loginUsername);
     }
 
-    public void enterLoginPassword(String password) {
+    private void enterLoginPassword(String password) {
         WebElement inputLoginPassword = driver.findElement(INPUT_LOGIN_PASSWORD);
         inputLoginPassword.sendKeys(password);
     }
