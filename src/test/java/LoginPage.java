@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebElement;
 
@@ -11,8 +12,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 public class LoginPage extends PageBasis {
     private static final String URL = "https://www.tut.by/";
     private static final String LOGIN_TITLE = "Белорусский портал TUT.BY. Новости Беларуси и мира";
-    private static final String LOGIN_USERNAME = "seleniumtests@tut.by";
-    private static final String LOGIN_PASSWORD = "123456789zxcvbn";
     private static final By LABEL_LOGGED_USER_NAME = By.xpath("//span[@class = 'uname']");
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
@@ -24,49 +23,47 @@ public class LoginPage extends PageBasis {
         driver.get(URL);
     }
 
-    public String loginTitle() {
-        return LOGIN_TITLE;
-    }
-
     @FindBy(xpath = "//a[@class = 'enter']")
     private WebElement loginMenuItem;
 
-    public WebElement loginMenuItem() {
+    private WebElement loginMenuItem() {
         return loginMenuItem;
     }
 
     @FindBy(xpath = "//input[@name = 'login']")
     private WebElement inputLoginUsername;
 
-    public void enterLoginUsername() {
-        inputLoginUsername.sendKeys(LOGIN_USERNAME);
+    private void enterLoginUsername(String loginUsername) {
+        inputLoginUsername.sendKeys(loginUsername);
     }
 
     @FindBy(xpath = "//input[@name = 'password']")
     private WebElement inputLoginPassword;
 
-    public void enterLoginPassword() {
-        inputLoginPassword.sendKeys(LOGIN_PASSWORD);
+    private void enterLoginPassword(String password) {
+        inputLoginPassword.sendKeys(password);
     }
 
     @FindBy(xpath = "//input[@class = 'button auth__enter']")
     private WebElement buttonLoginSubmit;
 
-    public WebElement buttonLoginSubmit() {
+    private WebElement buttonLoginSubmit() {
         return buttonLoginSubmit;
     }
 
-    public void login() {
+    public LoggedInPage login(String loginUsername, String password) {
         open();
-        wait.until(titleIs(loginTitle()));
+        wait.until(titleIs(LOGIN_TITLE));
         loginMenuItem().click();
-        enterLoginUsername();
-        enterLoginPassword();
+        enterLoginUsername(loginUsername);
+        enterLoginPassword(password);
         buttonLoginSubmit().click();
         new Actions(driver).click().perform();
+        wait.until(ExpectedConditions.presenceOfElementLocated(labelLoggedUsername()));
+        return new LoggedInPage(driver, wait);
     }
 
-    public By labelLoggedUsername() {
+    private By labelLoggedUsername() {
         return LABEL_LOGGED_USER_NAME;
     }
 
@@ -76,27 +73,5 @@ public class LoginPage extends PageBasis {
     public String getTextOfLabelLoggedUsername() {
         String getTextOfLabelLoggedUsername = labelLoggedUserName.getText();
         return getTextOfLabelLoggedUsername;
-    }
-
-    @FindBy(xpath = "//a[@class = 'enter logedin']")
-    private WebElement linkLogoutMenuItem;
-
-    public WebElement linkLogoutMenuItem() {
-        return linkLogoutMenuItem;
-    }
-
-    @FindBy(xpath = "//a[@class = 'button wide auth__reg']")
-    private WebElement buttonLogout;
-
-    public WebElement buttonLogout() {
-        return buttonLogout;
-    }
-
-    @FindBy(xpath = "//a[@class = 'enter']")
-    private WebElement labelLoggedOut;
-
-    public String getTextOfLabelLoggedOut() {
-        String getTextOfLabelLoggedOut = labelLoggedOut.getText();
-        return getTextOfLabelLoggedOut;
     }
 }
