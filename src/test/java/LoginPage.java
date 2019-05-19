@@ -67,11 +67,11 @@ public class LoginPage extends PageBasis {
         return LABEL_LOGGED_USER_NAME;
     }
 
-    @FindBy(xpath = "//span[@class = 'uname']")
-    private WebElement labelLoggedUserName;
+    @FindBy(xpath = "//a[@class = 'enter']")
+    private WebElement labelLoggedOut;
 
-    public String getTextOfLabelLoggedUsername() {
-        String getTextOfLabelLoggedUsername = labelLoggedUserName.getText();
-        return getTextOfLabelLoggedUsername;
+    public String getTextOfLabelLoggedOut() {
+        String getTextOfLabelLoggedOut = labelLoggedOut.getText();
+        return getTextOfLabelLoggedOut;
     }
 }

@@ -23,16 +23,17 @@ public class LoggedInPage extends PageBasis {
     private WebElement buttonLogout() {
         return buttonLogout;
     }
-    public void logout(){
+    public LoginPage logout(){
         linkLogoutMenuItem().click();
         buttonLogout().click();
+        return new LoginPage(driver, wait);
     }
 
-    @FindBy(xpath = "//a[@class = 'enter']")
-    private WebElement labelLoggedOut;
+    @FindBy(xpath = "//span[@class = 'uname']")
+    private WebElement labelLoggedUserName;
 
-    public String getTextOfLabelLoggedOut() {
-        String getTextOfLabelLoggedOut = labelLoggedOut.getText();
-        return getTextOfLabelLoggedOut;
+    public String getTextOfLabelLoggedUsername() {
+        String getTextOfLabelLoggedUsername = labelLoggedUserName.getText();
+        return getTextOfLabelLoggedUsername;
     }
 }

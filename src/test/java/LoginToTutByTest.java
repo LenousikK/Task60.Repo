@@ -10,7 +10,7 @@ public class LoginToTutByTest extends BeforeAfter {
     @Test
     public void loginSuccessful() {
         LoginPage loginPage = new LoginPage(driver, wait);
-        loginPage.login(LOGIN_USERNAME, LOGIN_PASSWORD);
-        assertEquals(EXPECTED_TEXT_OF_LABEL_LOGGED_USERNAME, loginPage.getTextOfLabelLoggedUsername());
+        LoggedInPage loggedInPage = loginPage.login(LOGIN_USERNAME, LOGIN_PASSWORD);
+        assertEquals(EXPECTED_TEXT_OF_LABEL_LOGGED_USERNAME, loggedInPage.getTextOfLabelLoggedUsername());
     }
 }
