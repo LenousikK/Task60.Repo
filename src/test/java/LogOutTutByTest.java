@@ -11,7 +11,7 @@ public class LogOutTutByTest extends BeforeAfter {
     public void logoutSuccessful() {
         LoginPage loginPage = new LoginPage(driver, wait);
         LoggedInPage loggedInPage = loginPage.login(LOGIN_USERNAME, LOGIN_PASSWORD);
-        loggedInPage.logout();
-        assertEquals(EXPECTED_TEXT_OF_LABEL_LOGGED_OUT, loggedInPage.getTextOfLabelLoggedOut());
+        loginPage = loggedInPage.logout();
+        assertEquals(EXPECTED_TEXT_OF_LABEL_LOGGED_OUT, loginPage.getTextOfLabelLoggedOut());
     }
 }

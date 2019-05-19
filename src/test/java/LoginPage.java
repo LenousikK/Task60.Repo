@@ -15,6 +15,7 @@ public class LoginPage extends PageBasis {
     private static final By INPUT_LOGIN_PASSWORD = By.xpath("//input[@name = 'password']");
     private static final By BUTTON_LOGIN_SUBMIT = By.xpath("//input[@class = 'button auth__enter']");
     private static final By LABEL_LOGGED_USER_NAME = By.xpath("//span[@class = 'uname']");
+    private static final By LABEL_BUTTON_LOGOUT = By.xpath("//a[@class = 'enter']");
 
     public LoginPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);
@@ -60,8 +61,8 @@ public class LoginPage extends PageBasis {
         return LABEL_LOGGED_USER_NAME;
     }
 
-    public String getTextOfLabelLoggedUsername() {
-        String getTextOfLabelLoggedUsername = driver.findElement(LABEL_LOGGED_USER_NAME).getText();
-        return getTextOfLabelLoggedUsername;
+    public String getTextOfLabelLoggedOut() {
+        String getTextOfLabelLoggedOut = driver.findElement(LABEL_BUTTON_LOGOUT).getText();
+        return getTextOfLabelLoggedOut;
     }
 }

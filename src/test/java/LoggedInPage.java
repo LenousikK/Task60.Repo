@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoggedInPage extends PageBasis {
     private static final By LINK_LOGOUT_MENU_ITEM = By.xpath("//a[@class = 'enter logedin']");
     private static final By BUTTON_LOGOUT = By.xpath("//a[@class = 'button wide auth__reg']");
-    private static final By LABEL_BUTTON_LOGOUT = By.xpath("//a[@class = 'enter']");
+    private static final By LABEL_LOGGED_USER_NAME = By.xpath("//span[@class = 'uname']");
 
     public LoggedInPage(WebDriver driver, WebDriverWait wait){
         super(driver, wait);
@@ -21,13 +21,15 @@ public class LoggedInPage extends PageBasis {
         WebElement buttonLogout = driver.findElement(BUTTON_LOGOUT);
         return buttonLogout;
     }
-    public void logout(){
-        linkLogoutMenuItem().click();
-        buttonLogout().click();
+
+    public String getTextOfLabelLoggedUsername() {
+        String getTextOfLabelLoggedUsername = driver.findElement(LABEL_LOGGED_USER_NAME).getText();
+        return getTextOfLabelLoggedUsername;
     }
 
-    public String getTextOfLabelLoggedOut() {
-        String getTextOfLabelLoggedOut = driver.findElement(LABEL_BUTTON_LOGOUT).getText();
-        return getTextOfLabelLoggedOut;
+    public LoginPage logout(){
+        linkLogoutMenuItem().click();
+        buttonLogout().click();
+        return new LoginPage(driver, wait);
     }
 }
